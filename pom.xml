@@ -83,12 +83,12 @@
   <artifactId>json-generation</artifactId>
   <name>JSON generation framework to convert JCR data from / to JSON</name>
   <version>1.0.0-SNAPSHOT</version>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <description>This is the custom module (JSON generation framework to convert JCR data from / to JSON) for running on a Digital Factory server.</description>
 
   <scm>
-    <connection>scm:dummy:uri</connection>
-    <developerConnection>scm:dummy:uri</developerConnection>
+    <connection>git@github.com:Jahia/json-generation.git</connection>
+    <developerConnection>git@github.com:Jahia/json-generation.git</developerConnection>
   </scm>
 
   <properties>
@@ -101,7 +101,6 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>${jackson.version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
@@ -112,7 +111,6 @@
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.jaxrs</groupId>
@@ -147,7 +145,7 @@
     </repository>
   </repositories>
 
-  <build>
+  <!--<build>
     <plugins>
       <plugin>
         <groupId>org.apache.felix</groupId>
@@ -155,9 +153,10 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
-            <Jahia-Depends>default</Jahia-Depends>
+            <Jahia-Depends>default,jaxrs-ri</Jahia-Depends>
             <Import-Package>
-              com.fasterxml.jackson.*
+              com.fasterxml.jackson.*,
+              javax.ws.*
             </Import-Package>
             <Export-Package>
               org.jahia.modules.json.*
@@ -166,5 +165,5 @@
         </configuration>
       </plugin>
     </plugins>
-  </build>
+  </build>-->
 </project>
