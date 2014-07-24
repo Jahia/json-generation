@@ -58,6 +58,21 @@ public class DefaultJSONObjectFactory extends JSONObjectFactory {
         mapper.setAnnotationIntrospector(AnnotationIntrospector.pair(new JacksonAnnotationIntrospector(), new JaxbAnnotationIntrospector(typeFactory)));
     }
 
+    private DefaultJSONObjectFactory() {
+    }
+
+    // Initialization on demand holder idiom: thread-safe singleton initialization
+    private static class Holder {
+        static final DefaultJSONObjectFactory INSTANCE = new DefaultJSONObjectFactory();
+
+        private Holder() {
+        }
+    }
+
+    public static DefaultJSONObjectFactory getInstance() {
+        return Holder.INSTANCE;
+    }
+
     @Override
     public JSONDecorator createDecorator() {
         return null;
