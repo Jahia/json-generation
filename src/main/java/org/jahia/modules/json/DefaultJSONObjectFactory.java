@@ -46,6 +46,11 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 
+import javax.jcr.Item;
+import javax.jcr.Node;
+import javax.jcr.Property;
+import javax.jcr.RepositoryException;
+
 /**
  * @author Christophe Laprun
  */
@@ -76,6 +81,22 @@ public class DefaultJSONObjectFactory extends JSONObjectFactory {
     @Override
     public JSONDecorator createDecorator() {
         return null;
+    }
+
+    public String getAsString(Item item) {
+        try {
+            JSONBase base;
+            if (item instanceof Node) {
+                base = createNode((Node) item, 1);
+            }
+            else {
+                base = createProperty((Property) item);
+            }
+
+            return getAsString(base);
+        } catch (RepositoryException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static String getAsString(JSONBase jsonBase) {
