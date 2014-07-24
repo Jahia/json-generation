@@ -52,34 +52,42 @@ public abstract class JSONObjectFactory<T extends JSONDecorator<T>> {
 
     public abstract T createDecorator();
 
+    @SuppressWarnings("unused")
     public JSONNode<T> createNode(Node node, int depth) throws RepositoryException {
         return new JSONNode<T>(createDecorator(), node, depth);
     }
 
+    @SuppressWarnings("unused")
     public JSONChildren<T> createChildren(JSONNode<T> parent, Node node) throws RepositoryException {
         return new JSONChildren<T>(parent, node);
     }
 
+    @SuppressWarnings("unused")
     public JSONVersions<T> createVersions(JSONNode<T> parent, Node node) throws RepositoryException {
         return new JSONVersions<T>(parent, node);
     }
 
+    @SuppressWarnings("unused")
     public JSONVersion<T> createVersion(Node node, Version version) throws RepositoryException {
         return new JSONVersion<T>(createDecorator(), node, version);
     }
 
-    public JSONProperties<T> createProperties(JSONNode parent, Node node) throws RepositoryException {
+    @SuppressWarnings("unused")
+    public JSONProperties<T> createProperties(JSONNode<T> parent, Node node) throws RepositoryException {
         return new JSONProperties<T>(parent, node);
     }
 
+    @SuppressWarnings("unused")
     public JSONMixin<T> createMixin(Node node, NodeType mixin) throws RepositoryException {
         return new JSONMixin<T>(createDecorator(), node, mixin);
     }
 
-    public JSONMixins<T> createMixins(JSONNode parent, Node node) throws RepositoryException {
-        return new JSONMixins(parent, node);
+    @SuppressWarnings("unused")
+    public JSONMixins<T> createMixins(JSONNode<T> parent, Node node) throws RepositoryException {
+        return new JSONMixins<T>(parent, node);
     }
 
+    @SuppressWarnings("unused")
     public JSONProperty<T> createProperty(Property property) throws RepositoryException {
         return new JSONProperty<T>(createDecorator(), property);
     }
