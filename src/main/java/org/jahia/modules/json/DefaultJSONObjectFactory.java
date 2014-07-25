@@ -45,11 +45,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
+import org.jahia.modules.json.jcr.SessionAccess;
 
-import javax.jcr.Item;
-import javax.jcr.Node;
-import javax.jcr.Property;
-import javax.jcr.RepositoryException;
+import javax.jcr.*;
 
 /**
  * @author Christophe Laprun
@@ -84,6 +82,18 @@ public class DefaultJSONObjectFactory extends JSONObjectFactory {
     }
 
     public String getAsString(Item item) {
+        return getAsString(item, null);
+    }
+
+    public String getAsString(Item item, Session session) {
+        // record current session info if any
+        final SessionAccess.SessionInfo currentSession = SessionAccess.getCurrentSession();
+
+        if (session != null) {
+            // change the current session to use the provided one
+            SessionAccess.setCurrentSession(session, session.getWorkspace().getName(), null);
+        }
+
         try {
             JSONBase base;
             if (item instanceof Node) {
@@ -96,6 +106,11 @@ public class DefaultJSONObjectFactory extends JSONObjectFactory {
             return getAsString(base);
         } catch (RepositoryException e) {
             throw new RuntimeException(e);
+        } finally {
+            if (currentSession != null) {
+                // restore the previous session information
+                SessionAccess.setCurrentSession(currentSession.session, currentSession.workspace, currentSession.language);
+            }
         }
     }
 
