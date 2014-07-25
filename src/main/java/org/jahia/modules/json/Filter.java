@@ -41,58 +41,84 @@ package org.jahia.modules.json;
 
 import javax.jcr.Node;
 import javax.jcr.Property;
-import javax.jcr.RepositoryException;
 import javax.jcr.nodetype.NodeType;
 import javax.jcr.version.Version;
 
 /**
  * @author Christophe Laprun
  */
-public abstract class JSONObjectFactory<T extends JSONDecorator<T>> {
+public interface Filter {
+    Filter OUTPUT_ALL = new DefaultFilter();
 
-    public abstract T createDecorator();
+    boolean outputProperties();
 
-    @SuppressWarnings("unused")
-    public JSONNode<T> createNode(Node node, int depth) throws RepositoryException {
-        return new JSONNode<T>(createDecorator(), node, depth);
-    }
+    boolean outputMixins();
 
-    public JSONNode<T> createNode(Node node, int depth, Filter filter) throws RepositoryException {
-        return new JSONNode<T>(createDecorator(), node, depth, filter);
-    }
+    boolean outputChildren();
 
-    @SuppressWarnings("unused")
-    public JSONChildren<T> createChildren(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONChildren<T>(parent, node);
-    }
+    boolean outputVersions();
 
-    @SuppressWarnings("unused")
-    public JSONVersions<T> createVersions(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONVersions<T>(parent, node);
-    }
+    String[] acceptedPropertyNameGlobs();
 
-    @SuppressWarnings("unused")
-    public JSONVersion<T> createVersion(Node node, Version version) throws RepositoryException {
-        return new JSONVersion<T>(createDecorator(), node, version);
-    }
+    String[] acceptedChildNameGlobs();
 
-    @SuppressWarnings("unused")
-    public JSONProperties<T> createProperties(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONProperties<T>(parent, node);
-    }
+    boolean acceptProperty(Property property);
 
-    @SuppressWarnings("unused")
-    public JSONMixin<T> createMixin(Node node, NodeType mixin) throws RepositoryException {
-        return new JSONMixin<T>(createDecorator(), node, mixin);
-    }
+    boolean acceptMixin(NodeType mixinNodeType);
 
-    @SuppressWarnings("unused")
-    public JSONMixins<T> createMixins(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONMixins<T>(parent, node);
-    }
+    boolean acceptVersion(Version version);
 
-    @SuppressWarnings("unused")
-    public JSONProperty<T> createProperty(Property property) throws RepositoryException {
-        return new JSONProperty<T>(createDecorator(), property);
+    boolean acceptChild(Node child);
+
+    static class DefaultFilter implements Filter {
+        @Override
+        public boolean outputProperties() {
+            return true;
+        }
+
+        @Override
+        public boolean outputMixins() {
+            return true;
+        }
+
+        @Override
+        public boolean outputChildren() {
+            return true;
+        }
+
+        @Override
+        public boolean outputVersions() {
+            return true;
+        }
+
+        @Override
+        public String[] acceptedPropertyNameGlobs() {
+            return null;
+        }
+
+        @Override
+        public String[] acceptedChildNameGlobs() {
+            return null;
+        }
+
+        @Override
+        public boolean acceptProperty(Property property) {
+            return true;
+        }
+
+        @Override
+        public boolean acceptMixin(NodeType mixinNodeType) {
+            return true;
+        }
+
+        @Override
+        public boolean acceptVersion(Version version) {
+            return true;
+        }
+
+        @Override
+        public boolean acceptChild(Node child) {
+            return true;
+        }
     }
 }

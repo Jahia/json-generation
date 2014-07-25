@@ -103,14 +103,20 @@ public class JSONMixins<D extends JSONDecorator<D>> extends JSONSubElementContai
     }
 
     protected JSONMixins(JSONNode<D> parent, Node node) throws RepositoryException {
+        this(parent, node, Filter.OUTPUT_ALL);
+    }
+
+    protected JSONMixins(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
         super(parent);
 
         final NodeType[] mixinNodeTypes = node.getMixinNodeTypes();
         if (mixinNodeTypes != null) {
             mixins = new HashMap<String, JSONMixin<D>>(mixinNodeTypes.length);
             for (NodeType mixinNodeType : mixinNodeTypes) {
-                final String name = mixinNodeType.getName();
-                mixins.put(Names.escape(name), new JSONMixin<D>(getNewDecoratorOrNull(), node, mixinNodeType));
+                if (filter.acceptMixin(mixinNodeType)) {
+                    final String name = mixinNodeType.getName();
+                    mixins.put(Names.escape(name), new JSONMixin<D>(getNewDecoratorOrNull(), node, mixinNodeType));
+                }
             }
         }
     }

@@ -103,8 +103,12 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
     }
 
     protected JSONChildren(JSONNode<D> parent, Node node) throws RepositoryException {
+        this(parent, node, Filter.OUTPUT_ALL);
+    }
+
+    protected JSONChildren(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
         super(parent);
-        initWith(parent, node);
+        initWith(parent, node, filter);
     }
 
     @Override
@@ -112,17 +116,19 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
         return JSONConstants.CHILDREN;
     }
 
-    private void initWith(JSONNode<D> parent, Node node) throws RepositoryException {
+    protected void initWith(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
         super.initWith(parent, JSONConstants.CHILDREN);
 
-        final NodeIterator nodes = node.getNodes();
+        String[] nameGlobs = filter.acceptedChildNameGlobs();
+        final NodeIterator nodes = nameGlobs == null ? node.getNodes() : node.getNodes(nameGlobs);
         children = new HashMap<String, JSONNode<D>>((int) nodes.getSize());
 
         while (nodes.hasNext()) {
             Node child = nodes.nextNode();
 
-            // build child resource URI
-            children.put(Names.escape(child.getName(), child.getIndex()), new JSONNode<D>(getNewDecoratorOrNull(), child, 0));
+            if (filter.acceptChild(child)) {
+                children.put(Names.escape(child.getName(), child.getIndex()), new JSONNode<D>(getNewDecoratorOrNull(), child, 0));
+            }
         }
     }
 

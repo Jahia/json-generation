@@ -96,6 +96,10 @@ public class JSONVersions<D extends JSONDecorator<D>> extends JSONSubElementCont
     private Map<String, JSONVersion<D>> versions;
 
     protected JSONVersions(JSONNode<D> parent, Node node) throws RepositoryException {
+        this(parent, node, Filter.OUTPUT_ALL);
+    }
+
+    protected JSONVersions(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
         super(parent);
 
         final VersionHistory versionHistory = getVersionHistoryFor(node);
@@ -104,7 +108,9 @@ public class JSONVersions<D extends JSONDecorator<D>> extends JSONSubElementCont
             versions = new LinkedHashMap<String, JSONVersion<D>>((int) allVersions.getSize());
             while (allVersions.hasNext()) {
                 final Version version = allVersions.nextVersion();
-                versions.put(version.getName(), new JSONVersion<D>(getNewDecoratorOrNull(), node, version));
+                if (filter.acceptVersion(version)) {
+                    versions.put(version.getName(), new JSONVersion<D>(getNewDecoratorOrNull(), node, version));
+                }
             }
         } else {
             versions = Collections.emptyMap();

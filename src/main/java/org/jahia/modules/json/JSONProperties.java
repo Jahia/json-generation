@@ -104,8 +104,12 @@ public class JSONProperties<D extends JSONDecorator<D>> extends JSONSubElementCo
     }
 
     protected JSONProperties(JSONNode<D> parent, Node node) throws RepositoryException {
+        this(parent, node, Filter.OUTPUT_ALL);
+    }
+
+    protected JSONProperties(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
         super(parent);
-        initWith(parent, node);
+        initWith(parent, node, filter);
     }
 
     @Override
@@ -113,20 +117,22 @@ public class JSONProperties<D extends JSONDecorator<D>> extends JSONSubElementCo
         return JSONConstants.PROPERTIES;
     }
 
-    public void initWith(JSONNode<D> parent, Node node) throws RepositoryException {
+    public void initWith(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
         super.initWith(parent, JSONConstants.PROPERTIES);
 
-        final PropertyIterator props = node.getProperties();
+        final String[] nameGlobs = filter.acceptedPropertyNameGlobs();
+        final PropertyIterator props = nameGlobs == null ? node.getProperties() : node.getProperties(nameGlobs);
 
         // properties URI builder
         if (props != null) {
             properties = new HashMap<String, JSONProperty<D>>((int) props.getSize());
             while (props.hasNext()) {
                 Property property = props.nextProperty();
-                final String propertyName = property.getName();
 
-                // add property
-                this.properties.put(Names.escape(propertyName), new JSONProperty<D>(getNewDecoratorOrNull(), property));
+                if (filter.acceptProperty(property)) {
+                    // add property
+                    this.properties.put(Names.escape(property.getName()), new JSONProperty<D>(getNewDecoratorOrNull(), property));
+                }
             }
         }
     }

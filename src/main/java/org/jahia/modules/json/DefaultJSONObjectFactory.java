@@ -82,10 +82,14 @@ public class DefaultJSONObjectFactory extends JSONObjectFactory {
     }
 
     public String getAsString(Item item) {
-        return getAsString(item, null);
+        return getAsString(item, null, Filter.OUTPUT_ALL);
     }
 
-    public String getAsString(Item item, Session session) {
+    public String getAsString(Item item, Session session, Filter filter) {
+        if (filter == null) {
+            filter = Filter.OUTPUT_ALL;
+        }
+
         // record current session info if any
         final SessionAccess.SessionInfo currentSession = SessionAccess.getCurrentSession();
 
@@ -97,7 +101,7 @@ public class DefaultJSONObjectFactory extends JSONObjectFactory {
         try {
             JSONBase base;
             if (item instanceof Node) {
-                base = createNode((Node) item, 1);
+                base = createNode((Node) item, 1, filter);
             }
             else {
                 base = createProperty((Property) item);

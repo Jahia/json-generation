@@ -120,22 +120,26 @@ public class JSONNode<D extends JSONDecorator<D>> extends JSONItem<Node, D> {
     }
 
     protected JSONNode(D decorator, Node node, int depth) throws RepositoryException {
-        this(decorator);
-        initWith(node, depth);
+        this(decorator, node, depth, Filter.OUTPUT_ALL);
     }
 
-    public void initWith(Node node, int depth) throws RepositoryException {
+    protected JSONNode(D decorator, Node node, int depth, Filter filter) throws RepositoryException {
+        this(decorator);
+        initWith(node, depth, filter == null ? Filter.OUTPUT_ALL : filter);
+    }
+
+    protected void initWith(Node node, int depth, Filter filter) throws RepositoryException {
         super.initWith(node);
         id = node.getIdentifier();
 
         if (depth > 0) {
-            properties = new JSONProperties<D>(this, node);
+            properties = filter.outputProperties() ? new JSONProperties<D>(this, node, filter) : null;
 
-            mixins = new JSONMixins<D>(this, node);
+            mixins = filter.outputMixins() ? new JSONMixins<D>(this, node, filter) : null;
 
-            children = new JSONChildren<D>(this, node);
+            children = filter.outputChildren() ? new JSONChildren<D>(this, node, filter) : null;
 
-            versions = new JSONVersions<D>(this, node);
+            versions = filter.outputVersions() ? new JSONVersions<D>(this, node, filter) : null;
 
             getDecoratorOrNullOpIfNull().initFrom(this);
         } else {
