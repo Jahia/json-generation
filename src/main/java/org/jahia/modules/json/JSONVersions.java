@@ -76,7 +76,6 @@ import org.jahia.modules.json.jcr.SessionAccess;
 
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
-import javax.jcr.Session;
 import javax.jcr.version.Version;
 import javax.jcr.version.VersionHistory;
 import javax.jcr.version.VersionIterator;
@@ -119,9 +118,9 @@ public class JSONVersions<D extends JSONDecorator<D>> extends JSONSubElementCont
 
     public static VersionHistory getVersionHistoryFor(Node node) throws RepositoryException {
         if (isNodeVersionable(node)) {
-            final Session session = SessionAccess.getCurrentSession().session;
-            if (session != null) {
-                final VersionManager versionManager = session.getWorkspace().getVersionManager();
+            final SessionAccess.SessionInfo sessionInfo = SessionAccess.getCurrentSession();
+            if (sessionInfo != null && sessionInfo.session != null) {
+                final VersionManager versionManager = sessionInfo.session.getWorkspace().getVersionManager();
                 final String path = node.getPath();
 
                 try {
