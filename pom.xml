@@ -87,8 +87,8 @@
     <description>This is the custom module (JSON generation framework to convert JCR data from / to JSON) for running on a Digital Factory server.</description>
 
     <scm>
-        <connection>git@github.com:Jahia/json-generation.git</connection>
-        <developerConnection>git@github.com:Jahia/json-generation.git</developerConnection>
+        <connection>scm:git:git@github.com:Jahia/json-generation.git</connection>
+        <developerConnection>scm:git:git@github.com:Jahia/json-generation.git</developerConnection>
         <url>scm:git:git@github.com:Jahia/json-generation.git</url>
     </scm>
 
