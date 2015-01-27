@@ -71,13 +71,13 @@
  */
 package org.jahia.modules.json;
 
+import java.util.List;
 import javax.jcr.Property;
 import javax.jcr.PropertyType;
 import javax.jcr.RepositoryException;
 import javax.jcr.Value;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 
 /**
  * @author Christophe Laprun
@@ -93,7 +93,7 @@ public class JSONProperty<D extends JSONDecorator<D>> extends JSONItem<Property,
     @XmlElement
     private boolean reference;
 
-    private boolean path;
+    private boolean isPath;
 
     private JSONProperty() {
         this(null);
@@ -114,7 +114,7 @@ public class JSONProperty<D extends JSONDecorator<D>> extends JSONItem<Property,
         // check whether we need to add a target link
         final int type = property.getType();
         reference = type == PropertyType.PATH || type == PropertyType.REFERENCE || type == PropertyType.WEAKREFERENCE;
-        path = PropertyType.PATH == type;
+        isPath = PropertyType.PATH == type;
 
         // retrieve value
         this.multiValued = property.isMultiple();
@@ -244,6 +244,6 @@ public class JSONProperty<D extends JSONDecorator<D>> extends JSONItem<Property,
     }
 
     public boolean isPath() {
-        return path;
+        return isPath;
     }
 }

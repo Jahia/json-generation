@@ -87,6 +87,9 @@ public abstract class JSONItem<T extends Item, D extends JSONDecorator<D>> exten
     @XmlElement
     private String type;
 
+    @XmlElement
+    private String path;
+
     protected JSONItem(D decorator) {
         super(decorator);
     }
@@ -94,6 +97,7 @@ public abstract class JSONItem<T extends Item, D extends JSONDecorator<D>> exten
     public void initWith(T item) throws RepositoryException {
         initWith(item.getName());
         this.type = getUnescapedTypeName(item);
+        this.path = item.getPath();
 
         getDecoratorOrNullOpIfNull().initFrom(this, item);
     }
