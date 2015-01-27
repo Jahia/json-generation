@@ -54,11 +54,11 @@ public abstract class JSONObjectFactory<T extends JSONDecorator<T>> {
 
     @SuppressWarnings("unused")
     public JSONNode<T> createNode(Node node, int depth) throws RepositoryException {
-        return new JSONNode<T>(createDecorator(), node, depth);
+        return createNode(node, Filter.OUTPUT_ALL, depth);
     }
 
-    public JSONNode<T> createNode(Node node, int depth, Filter filter) throws RepositoryException {
-        return new JSONNode<T>(createDecorator(), node, depth, filter);
+    public JSONNode<T> createNode(Node node, Filter filter, int depth) throws RepositoryException {
+        return new JSONNode<T>(createDecorator(), node, filter, depth);
     }
 
     @SuppressWarnings("unused")

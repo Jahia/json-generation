@@ -71,13 +71,13 @@
  */
 package org.jahia.modules.json;
 
+import java.util.Map;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Map;
 
 /**
  * A JSON representation of a JCR node. <p/>
@@ -119,16 +119,12 @@ public class JSONNode<D extends JSONDecorator<D>> extends JSONItem<Node, D> {
         super(decorator);
     }
 
-    protected JSONNode(D decorator, Node node, int depth) throws RepositoryException {
-        this(decorator, node, depth, Filter.OUTPUT_ALL);
-    }
-
-    protected JSONNode(D decorator, Node node, int depth, Filter filter) throws RepositoryException {
+    protected JSONNode(D decorator, Node node, Filter filter, int depth) throws RepositoryException {
         this(decorator);
-        initWith(node, depth, filter == null ? Filter.OUTPUT_ALL : filter);
+        initWith(node, filter == null ? Filter.OUTPUT_ALL : filter, depth);
     }
 
-    protected void initWith(Node node, int depth, Filter filter) throws RepositoryException {
+    protected void initWith(Node node, Filter filter, int depth) throws RepositoryException {
         super.initWith(node);
         id = node.getIdentifier();
 
