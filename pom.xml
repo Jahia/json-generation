@@ -76,7 +76,7 @@
     <parent>
         <artifactId>jahia-modules</artifactId>
         <groupId>org.jahia.modules</groupId>
-        <version>7.0.0.3</version>
+        <version>7.0.0.0</version>
     </parent>
     <artifactId>json-generation</artifactId>
     <name>JSON generation framework to convert JCR data from / to JSON</name>
