@@ -103,12 +103,12 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
     }
 
     protected JSONChildren(JSONNode<D> parent, Node node) throws RepositoryException {
-        this(parent, node, Filter.OUTPUT_ALL);
+        this(parent, node, Filter.OUTPUT_ALL, 0);
     }
 
-    protected JSONChildren(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
+    protected JSONChildren(JSONNode<D> parent, Node node, Filter filter, int depth) throws RepositoryException {
         super(parent);
-        initWith(parent, node, filter);
+        initWith(parent, node, filter, depth);
     }
 
     @Override
@@ -116,7 +116,7 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
         return JSONConstants.CHILDREN;
     }
 
-    protected void initWith(JSONNode<D> parent, Node node, Filter filter) throws RepositoryException {
+    protected void initWith(JSONNode<D> parent, Node node, Filter filter, int depth) throws RepositoryException {
         super.initWith(parent, JSONConstants.CHILDREN);
 
         String[] nameGlobs = filter.acceptedChildNameGlobs();
@@ -127,7 +127,7 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
             Node child = nodes.nextNode();
 
             if (filter.acceptChild(child)) {
-                children.put(Names.escape(child.getName(), child.getIndex()), new JSONNode<D>(getNewDecoratorOrNull(), child, filter, 0));
+                children.put(Names.escape(child.getName(), child.getIndex()), new JSONNode<D>(getNewDecoratorOrNull(), child, filter, depth - 1));
             }
         }
     }

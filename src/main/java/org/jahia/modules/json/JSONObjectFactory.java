@@ -48,11 +48,11 @@ import javax.jcr.version.Version;
 /**
  * @author Christophe Laprun
  */
+@SuppressWarnings("unused")
 public abstract class JSONObjectFactory<T extends JSONDecorator<T>> {
 
     public abstract T createDecorator();
 
-    @SuppressWarnings("unused")
     public JSONNode<T> createNode(Node node, int depth) throws RepositoryException {
         return createNode(node, Filter.OUTPUT_ALL, depth);
     }
@@ -61,37 +61,46 @@ public abstract class JSONObjectFactory<T extends JSONDecorator<T>> {
         return new JSONNode<T>(createDecorator(), node, filter, depth);
     }
 
-    @SuppressWarnings("unused")
     public JSONChildren<T> createChildren(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONChildren<T>(parent, node);
+        return createChildren(parent, node, Filter.OUTPUT_ALL, 0);
     }
 
-    @SuppressWarnings("unused")
+    public JSONChildren<T> createChildren(JSONNode<T> parent, Node node, Filter filter, int depth) throws RepositoryException {
+        return new JSONChildren<T>(parent, node, filter, depth);
+    }
+
     public JSONVersions<T> createVersions(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONVersions<T>(parent, node);
+        return createVersions(parent, node, Filter.OUTPUT_ALL);
     }
 
-    @SuppressWarnings("unused")
+    public JSONVersions<T> createVersions(JSONNode<T> parent, Node node, Filter filter) throws RepositoryException {
+        return new JSONVersions<T>(parent, node, filter);
+    }
+
     public JSONVersion<T> createVersion(Node node, Version version) throws RepositoryException {
         return new JSONVersion<T>(createDecorator(), node, version);
     }
 
-    @SuppressWarnings("unused")
     public JSONProperties<T> createProperties(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONProperties<T>(parent, node);
+        return createProperties(parent, node, Filter.OUTPUT_ALL);
     }
 
-    @SuppressWarnings("unused")
+    public JSONProperties<T> createProperties(JSONNode<T> parent, Node node, Filter filter) throws RepositoryException {
+        return new JSONProperties<T>(parent, node, filter);
+    }
+
     public JSONMixin<T> createMixin(Node node, NodeType mixin) throws RepositoryException {
         return new JSONMixin<T>(createDecorator(), node, mixin);
     }
 
-    @SuppressWarnings("unused")
     public JSONMixins<T> createMixins(JSONNode<T> parent, Node node) throws RepositoryException {
-        return new JSONMixins<T>(parent, node);
+        return createMixins(parent, node, Filter.OUTPUT_ALL);
     }
 
-    @SuppressWarnings("unused")
+    public JSONMixins<T> createMixins(JSONNode<T> parent, Node node, Filter filter) throws RepositoryException {
+        return new JSONMixins<T>(parent, node, filter);
+    }
+
     public JSONProperty<T> createProperty(Property property) throws RepositoryException {
         return new JSONProperty<T>(createDecorator(), property);
     }

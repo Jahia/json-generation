@@ -133,7 +133,7 @@ public class JSONNode<D extends JSONDecorator<D>> extends JSONItem<Node, D> {
 
             mixins = filter.outputMixins() ? new JSONMixins<D>(this, node, filter) : null;
 
-            children = filter.outputChildren() ? new JSONChildren<D>(this, node, filter) : null;
+            children = filter.outputChildren() ? new JSONChildren<D>(this, node, filter, depth) : null;
 
             versions = filter.outputVersions() ? new JSONVersions<D>(this, node, filter) : null;
 
