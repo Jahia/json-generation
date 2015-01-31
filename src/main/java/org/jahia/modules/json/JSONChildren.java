@@ -132,7 +132,7 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
         }
     }
 
-    Map<String, JSONNode<D>> getChildren() {
+    public Map<String, JSONNode<D>> getChildren() {
         return children;
     }
 
