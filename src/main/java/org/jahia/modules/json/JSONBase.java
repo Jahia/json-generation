@@ -39,6 +39,12 @@
  */
 package org.jahia.modules.json;
 
+import java.io.IOException;
+import javax.jcr.Item;
+import javax.jcr.RepositoryException;
+import javax.jcr.version.Version;
+import javax.xml.bind.annotation.XmlElement;
+
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,18 +52,11 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
-import javax.jcr.Item;
-import javax.jcr.RepositoryException;
-import javax.jcr.version.Version;
-import javax.xml.bind.annotation.XmlElement;
-import java.io.IOException;
-
 /**
  * @author Christophe Laprun
  */
 public abstract class JSONBase<T extends JSONDecorator<T>> {
     private T decorator;
-    private final JSONDecorator<T> nullOpDecorator = new NullDecorator();
 
     protected JSONBase(T decorator) {
         this.decorator = decorator;
@@ -71,7 +70,7 @@ public abstract class JSONBase<T extends JSONDecorator<T>> {
     }
 
     protected JSONDecorator<T> getDecoratorOrNullOpIfNull() {
-        return decorator != null ? decorator : nullOpDecorator;
+        return decorator != null ? decorator : new NullDecorator();
     }
 
     protected T getNewDecoratorOrNull() {
