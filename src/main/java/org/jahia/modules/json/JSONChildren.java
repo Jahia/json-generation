@@ -72,8 +72,9 @@
 package org.jahia.modules.json;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
@@ -121,7 +122,7 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
 
         String[] nameGlobs = filter.acceptedChildNameGlobs();
         final NodeIterator nodes = nameGlobs == null ? node.getNodes() : node.getNodes(nameGlobs);
-        children = new HashMap<String, JSONNode<D>>((int) nodes.getSize());
+        children = initChildrenMap();
 
         while (nodes.hasNext()) {
             Node child = nodes.nextNode();
@@ -132,8 +133,12 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
         }
     }
 
+    private Map<String, JSONNode<D>> initChildrenMap() {
+        return new LinkedHashMap<String, JSONNode<D>>();
+    }
+
     public Map<String, JSONNode<D>> getChildren() {
-        return children;
+        return Collections.unmodifiableMap(children);
     }
 
     public static class ChildrenDeserializer extends JsonDeserializer<JSONChildren> {
@@ -160,7 +165,7 @@ public class JSONChildren<D extends JSONDecorator<D>> extends JSONSubElementCont
 
     private void addChild(String name, JSONNode<D> child) {
         if (children == null) {
-            children = new HashMap<String, JSONNode<D>>(7);
+            children = initChildrenMap();
         }
 
         children.put(name, child);
