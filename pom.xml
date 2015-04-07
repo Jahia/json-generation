@@ -79,7 +79,7 @@
     </parent>
     <artifactId>json-generation</artifactId>
     <name>JSON generation framework to convert JCR data from / to JSON</name>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>This is the custom module (JSON generation framework to convert JCR data from / to JSON) for running on a Digital Factory server.</description>
 
