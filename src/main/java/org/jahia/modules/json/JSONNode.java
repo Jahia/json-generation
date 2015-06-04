@@ -71,13 +71,13 @@
  */
 package org.jahia.modules.json;
 
-import java.util.Map;
 import javax.jcr.Node;
 import javax.jcr.RepositoryException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Map;
 
 /**
  * A JSON representation of a JCR node. <p/>
@@ -170,8 +170,13 @@ public class JSONNode<D extends JSONDecorator<D>> extends JSONItem<Node, D> {
     }
 
     public JSONProperty<D> getProperty(String property) {
-        property = Names.escape(property);
-        return getProperties().get(property);
+        final Map<String, JSONProperty<D>> properties = getProperties();
+        if (properties != null && !properties.isEmpty()) {
+            property = Names.escape(property);
+            return properties.get(property);
+        } else {
+            return null;
+        }
     }
 
     public JSONMixins<D> getJSONMixins() {
