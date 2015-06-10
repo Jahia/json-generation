@@ -39,12 +39,6 @@
  */
 package org.jahia.modules.json;
 
-import javax.jcr.Item;
-import javax.jcr.Node;
-import javax.jcr.Property;
-import javax.jcr.RepositoryException;
-import javax.jcr.Session;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -52,6 +46,8 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationIntrospector;
 import org.jahia.modules.json.jcr.SessionAccess;
+
+import javax.jcr.*;
 
 /**
  * @author Christophe Laprun

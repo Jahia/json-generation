@@ -39,18 +39,18 @@
  */
 package org.jahia.modules.json;
 
-import java.io.IOException;
-import javax.jcr.Item;
-import javax.jcr.RepositoryException;
-import javax.jcr.version.Version;
-import javax.xml.bind.annotation.XmlElement;
-
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
+import javax.jcr.Item;
+import javax.jcr.RepositoryException;
+import javax.jcr.version.Version;
+import javax.xml.bind.annotation.XmlElement;
+import java.io.IOException;
 
 /**
  * @author Christophe Laprun
