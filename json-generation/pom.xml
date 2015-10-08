@@ -75,7 +75,7 @@
     <parent>
         <artifactId>json-generation-bom</artifactId>
         <groupId>org.jahia.modules</groupId>
-        <version>1.1.1</version>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
     <artifactId>json-generation</artifactId>
     <name>Framework to convert JCR data from / to JSON</name>
