@@ -70,8 +70,7 @@
         please contact the sales department at sales@jahia.com.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>jahia-modules</artifactId>
@@ -80,7 +79,7 @@
     </parent>
     <artifactId>json-generation-bom</artifactId>
     <name>Framework to convert JCR data from / to JSON BOM</name>
-    <version>1.1.1-SNAPSHOT</version>
+    <version>1.1.1</version>
     <packaging>pom</packaging>
     <description>JSON generation framework Bill Of Materials (BOM)</description>
 
@@ -88,7 +87,8 @@
         <connection>scm:git:git@github.com:Jahia/json-generation.git</connection>
         <developerConnection>scm:git:git@github.com:Jahia/json-generation.git</developerConnection>
         <url>http://github.com:Jahia/json-generation.git</url>
-    </scm>
+      <tag>1_1_1</tag>
+  </scm>
 
     <properties>
         <jackson.version>2.5.0</jackson.version>
