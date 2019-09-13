@@ -47,68 +47,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <artifactId>jahia-modules</artifactId>
         <groupId>org.jahia.modules</groupId>
-        <version>7.0.0.0</version>
+        <artifactId>jahia-modules</artifactId>
+        <version>7.3.1.0</version>
     </parent>
-    <artifactId>json-generation-bom</artifactId>
-    <name>Framework to convert JCR data from / to JSON BOM</name>
-    <version>1.2.1-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <description>JSON generation framework Bill Of Materials (BOM)</description>
 
-    <scm>
-        <connection>scm:git:git@github.com:Jahia/json-generation.git</connection>
-        <developerConnection>scm:git:git@github.com:Jahia/json-generation.git</developerConnection>
-        <url>http://github.com:Jahia/json-generation.git</url>
-      <tag>HEAD</tag>
-  </scm>
-
-    <properties>
-        <jackson.version>2.9.8</jackson.version>
-    </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-core</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.jaxrs</groupId>
-                <artifactId>jackson-jaxrs-base</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.jaxrs</groupId>
-                <artifactId>jackson-jaxrs-json-provider</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.module</groupId>
-                <artifactId>jackson-module-jaxb-annotations</artifactId>
-                <version>${jackson.version}</version>
-            </dependency>
-            <!-- The module itself-->
-            <dependency>
-                <groupId>org.jahia.modules</groupId>
-                <artifactId>json-generation</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
+    <artifactId>json-generation</artifactId>
+    <version>1.3.0-SNAPSHOT</version>
+    <name>Framework to convert JCR data from / to JSON</name>
+    <packaging>jar</packaging>
+    <description>JSON generation framework to convert JCR data from / to JSON</description>
 
     <repositories>
         <repository>
@@ -125,9 +73,44 @@
         </repository>
     </repositories>
 
-    <modules>
-        <module>json-generation</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-base</artifactId>
+            <version>${jackson.osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+            <version>${jackson.osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${jackson.osgi.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
 
     <!--<build>
