@@ -53,7 +53,7 @@
     </parent>
 
     <artifactId>json-generation</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1-SNAPSHOT</version>
     <name>Framework to convert JCR data from / to JSON</name>
     <packaging>jar</packaging>
     <description>JSON generation framework to convert JCR data from / to JSON</description>
@@ -61,7 +61,7 @@
         <connection>scm:git:git@github.com:Jahia/json-generation.git</connection>
         <url>scm:git:git@github.com:Jahia/json-generation.git</url>
         <developerConnection>scm:git:git@github.com:Jahia/json-generation.git</developerConnection>
-      <tag>1_3_0</tag>
+      <tag>HEAD</tag>
   </scm>
     <repositories>
         <repository>
