@@ -57,7 +57,12 @@
     <name>Framework to convert JCR data from / to JSON</name>
     <packaging>jar</packaging>
     <description>JSON generation framework to convert JCR data from / to JSON</description>
-
+<scm>
+        <connection>scm:git:git@github.com:Jahia/json-generation.git</connection>
+        <url>scm:git:git@github.com:Jahia/json-generation.git</url>
+        <developerConnection>scm:git:git@github.com:Jahia/json-generation.git</developerConnection>
+      <tag>HEAD</tag>
+  </scm>
     <repositories>
         <repository>
             <id>jahia-public</id>
